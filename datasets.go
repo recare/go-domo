@@ -32,21 +32,21 @@ func (c HttpClient) CreateDataSet(in *DataSet) (*DataSet, error) {
 
 func (c HttpClient) UpdateDataSet(in *DataSet) (*DataSet, error) {
 	if err := in.validateRequest(); err != nil {
-		return nil, fmt.Errorf("invalid CreateDataSet input - %w", err)
+		return nil, fmt.Errorf("invalid UpdateDataSet input - %w", err)
 	}
 	data, err := json.Marshal(in)
 	if err != nil {
-		return nil, fmt.Errorf("error marshalling CreateDataSet body - %w", err)
+		return nil, fmt.Errorf("error marshalling UpdateDataSet body - %w", err)
 	}
 
 	body, err := c.do(http.MethodPut, fmt.Sprintf("%s/%s", pathDataset, in.ID), &payload{data: bytes.NewReader(data), contentType: "application/json"})
 	if err != nil {
-		return nil, fmt.Errorf("error performing CreateDataSet request - %w", err)
+		return nil, fmt.Errorf("error performing UpdateDataSet request - %w", err)
 	}
 
 	var out *DataSet
 	if err := json.Unmarshal(body, &out); err != nil {
-		return nil, fmt.Errorf("error unmarshalling response body of CreateDataSet request - %w", err)
+		return nil, fmt.Errorf("error unmarshalling response body of UpdateDataSet request - %w", err)
 	}
 
 	return out, nil
@@ -55,12 +55,12 @@ func (c HttpClient) UpdateDataSet(in *DataSet) (*DataSet, error) {
 func (c HttpClient) GetDataSet(id string) (*DataSet, error) {
 	body, err := c.do(http.MethodGet, url(pathDataset, id), nil)
 	if err != nil {
-		return nil, fmt.Errorf("error performing CreateDataSet request - %w", err)
+		return nil, fmt.Errorf("error performing GetDataSet request - %w", err)
 	}
 
 	var out *DataSet
 	if err := json.Unmarshal(body, &out); err != nil {
-		return nil, fmt.Errorf("error unmarshalling response body of CreateDataSet request - %w", err)
+		return nil, fmt.Errorf("error unmarshalling response body of GetDataSet request - %w", err)
 	}
 
 	return out, nil

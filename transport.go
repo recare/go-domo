@@ -47,7 +47,7 @@ func (c HttpClient) do(method, path string, payload *payload) ([]byte, error) {
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, fmt.Errorf("error reading response body of pdf generation request - %w", err)
+		return nil, fmt.Errorf("error reading response body - %w", err)
 	}
 
 	if !isSuccess(res.StatusCode) {

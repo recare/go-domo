@@ -50,7 +50,7 @@ func (c HttpClient) StreamImport(streamID, executionID, part int, fields [][]str
 	w := csv.NewWriter(b)
 
 	if err := w.WriteAll(fields); err != nil {
-		return fmt.Errorf("error csv marshalling csv - %w", err)
+		return fmt.Errorf("error csv marshalling - %w", err)
 	}
 
 	if _, err := c.do(http.MethodPut,
